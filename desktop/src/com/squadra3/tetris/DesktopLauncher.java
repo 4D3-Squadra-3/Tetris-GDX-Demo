@@ -12,6 +12,7 @@ public class DesktopLauncher {
 		config.setTitle("Tetris GDX Demo");
 		config.useVsync(true);
 		config.setWindowedMode(400, 800);
+		config.setResizable(false);
 		new Lwjgl3Application(new Tetris(), config);
 	}
 }
