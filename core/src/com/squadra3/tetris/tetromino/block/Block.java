@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
+import com.squadra3.tetris.global.Constants;
 
 public class Block implements Disposable {  // Parte di Tetromino
     protected Texture txt;
@@ -41,8 +42,8 @@ public class Block implements Disposable {  // Parte di Tetromino
         }
 
         Sprite toDraw = new Sprite(txt);
-        toDraw.setSize(400 / 10, 800 / 20);
-        toDraw.setPosition(x * 40, y * 40);
+        toDraw.setSize(Constants.WIN_WIDTH / Constants.GRID_WIDTH, Constants.WIN_HEIGHT / Constants.GRID_HEIGHT);
+        toDraw.setPosition(x * (Constants.WIN_WIDTH / Constants.GRID_WIDTH), y * (Constants.WIN_HEIGHT / Constants.GRID_HEIGHT));
 
         batch.begin();
 
