@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.squadra3.tetris.global.Constants;
 import com.squadra3.tetris.tetromino.Shape;
 import com.squadra3.tetris.tetromino.Tetromino;
 import com.squadra3.tetris.tetromino.TetrominoBuilder;
@@ -21,7 +22,7 @@ public class GameScene implements Disposable {
 
     public GameScene() {
         camera = new OrthographicCamera();
-        viewport = new FitViewport(400, 800, this.camera);
+        viewport = new FitViewport(Constants.WIN_WIDTH, Constants.WIN_HEIGHT, this.camera);
 
         // TODO Randomizzare la forma
         t = new TetrominoBuilder().reset().setShape(Shape.IPIECE).setCoords(5, 15).build();
