@@ -5,5 +5,7 @@ public enum Shape { // Forma del Tetromino
     IPIECE,
     JPIECE,
     LPIECE,
-    TPIECE
+    TPIECE,
+    SPIECE,
+    ZPIECE
 }

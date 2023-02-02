@@ -13,8 +13,14 @@ public class BlockBuilder implements Builder<Block> {
     }
 
     @Override
-    public void reset() {
+    public BlockBuilder reset() {
         toBuild = new Block();
+        return this;
+    }
+
+    public BlockBuilder setColor(Color color) {
+        toBuild.color = color;
+        return this;
     }
     
 }
