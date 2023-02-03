@@ -1,6 +1,8 @@
 package com.squadra3.tetris.scenes;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -27,6 +29,9 @@ public class GameScene implements Disposable {
         // TODO Randomizzare la forma
         t = new TetrominoBuilder().reset().setShape(Shape.IPIECE).setCoords(5, 15).build();
         t.create();
+
+        // Input
+        initInput();
     }
 
     public void render() {
@@ -42,5 +47,34 @@ public class GameScene implements Disposable {
     @Override
     public void dispose() {
         
+    }
+
+    // Inizializzazione input
+    private void initInput() {
+        Gdx.input.setInputProcessor(new InputAdapter() {
+            @Override
+            public boolean keyDown(int keycode) {
+                switch (keycode) {
+                    case Input.Keys.LEFT:
+                        t.setX(t.getX() - 1);
+                    break;
+                    case Input.Keys.RIGHT:
+                        t.setX(t.getX() + 1);
+                    break;
+                    case Input.Keys.DOWN:
+                        t.setY(t.getY() - 1);
+                    break;
+                    case Input.Keys.SPACE:
+                        //t.setY(0);
+                        // TODO Bounds
+                    break;
+                    case Input.Keys.UP:
+                        t.rotate();
+                    break;
+                }
+
+                return true;
+            }
+        });
     }
 }
