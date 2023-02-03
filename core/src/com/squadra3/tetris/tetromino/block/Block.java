@@ -19,7 +19,7 @@ public class Block implements Disposable {  // Parte di Tetromino
                 txt = new Texture("Blocco blu.png");
                 break;
             case CYAN:
-                txt = new Texture("Blocco azzurro.png");
+                txt = new Texture("Blocco ciano.png");
                 break;
             case GREEN:
                 txt = new Texture("Blocco verde.png");
