@@ -27,7 +27,7 @@ public class GameScene implements Disposable {
         viewport = new FitViewport(Constants.WIN_WIDTH, Constants.WIN_HEIGHT, this.camera);
 
         // TODO Randomizzare la forma
-        t = new TetrominoBuilder().reset().setShape(Shape.ZPIECE).setCoords(5, 15).build();
+        t = new TetrominoBuilder().reset().setShape(Shape.IPIECE).setCoords(5, 15).build();
         t.create();
 
         // Input
