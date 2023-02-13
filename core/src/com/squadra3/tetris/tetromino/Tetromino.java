@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.utils.Disposable;
 import com.squadra3.tetris.tetromino.block.Block;
 import com.squadra3.tetris.tetromino.block.BlockBuilder;
+import com.squadra3.tetris.tetromino.block.BlockCollision;
 import com.squadra3.tetris.tetromino.block.Color;
 
 // Definizione iniziale di cos'è un Tetromino
@@ -17,6 +18,7 @@ public class Tetromino implements Disposable {
     protected Shape shape;
 
     protected int x, y;
+    protected int id;
 
     public void create() {
         body = new ArrayList<Block>();
@@ -53,7 +55,7 @@ public class Tetromino implements Disposable {
         }
 
         for (int i = 0; i < 4; i++) { // Inizializza il corpo del tetromino
-            body.add(new BlockBuilder().reset().setColor(drawColor).build());
+            body.add(new BlockBuilder().reset().setColor(drawColor).setID(id).build());
             //body.get(i).getBatch().setProjectionMatrix(camera.combined);
         }
     }
@@ -130,6 +132,37 @@ public class Tetromino implements Disposable {
     }
     public int getY() {
         return y;
+    }
+
+    public boolean collidingRight() {
+        boolean ret = false;
+
+        for (int i = 0; i < body.size(); i++) {
+            ret = BlockCollision.checkCollision(body.get(i))[0];
+            if (ret == true) break;
+        }
+
+        return ret;
+    }
+    public boolean collidingLeft() {
+        boolean ret = false;
+
+        for (int i = 0; i < body.size(); i++) {
+            ret = BlockCollision.checkCollision(body.get(i))[1];
+            if (ret == true) break;
+        }
+
+        return ret;
+    }
+    public boolean collidingDown() {
+        boolean ret = false;
+
+        for (int i = 0; i < body.size(); i++) {
+            ret = BlockCollision.checkCollision(body.get(i))[2];
+            if (ret == true) break;
+        }
+
+        return ret;
     }
 
     public void rotate() {

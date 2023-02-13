@@ -13,6 +13,7 @@ import com.squadra3.tetris.global.Constants;
 import com.squadra3.tetris.tetromino.Shape;
 import com.squadra3.tetris.tetromino.Tetromino;
 import com.squadra3.tetris.tetromino.TetrominoBuilder;
+import com.squadra3.tetris.tetromino.block.BlockCollision;
 
 // TODO Griglia di gioco
 public class GameScene implements Disposable {
@@ -56,13 +57,16 @@ public class GameScene implements Disposable {
             public boolean keyDown(int keycode) {
                 switch (keycode) {
                     case Input.Keys.LEFT:
-                        t.setX(t.getX() - 1);
+                        if (!t.collidingLeft())    
+                            t.setX(t.getX() - 1);
                     break;
                     case Input.Keys.RIGHT:
-                        t.setX(t.getX() + 1);
+                        if (!t.collidingRight())
+                            t.setX(t.getX() + 1);
                     break;
                     case Input.Keys.DOWN:
-                        t.setY(t.getY() - 1);
+                        if (!t.collidingDown())
+                            t.setY(t.getY() - 1);
                     break;
                     case Input.Keys.SPACE:
                         //t.setY(0);

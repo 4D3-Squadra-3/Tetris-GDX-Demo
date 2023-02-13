@@ -28,4 +28,9 @@ public class TetrominoBuilder implements Builder<Tetromino> {
         toBuild.y = y;
         return this;
     }
+
+    public TetrominoBuilder setID(int id) {
+        toBuild.id = id;
+        return this;
+    }
 }
