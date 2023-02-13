@@ -27,7 +27,7 @@ public class GameScene implements Disposable {
         viewport = new FitViewport(Constants.WIN_WIDTH, Constants.WIN_HEIGHT, this.camera);
 
         // TODO Randomizzare la forma
-        t = new TetrominoBuilder().reset().setShape(Shape.IPIECE).setCoords(5, 15).build();
+        t = new TetrominoBuilder().reset().setShape(Shape.LPIECE).setCoords(5, 15).build();
         t.create();
 
         // Input
@@ -37,7 +37,7 @@ public class GameScene implements Disposable {
     public void render() {
         camera.update();
 
-        Gdx.gl.glClearColor(0.05f, 0.05f, 0.05f, 0);
+        Gdx.gl.glClearColor(0.235f, 0.235f, 0.235f, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // TODO Creare pool di tetromini
@@ -57,12 +57,15 @@ public class GameScene implements Disposable {
                 switch (keycode) {
                     case Input.Keys.LEFT:
                         t.setX(t.getX() - 1);
+                        if(t.getX() < 0) t.setX(0);
                     break;
                     case Input.Keys.RIGHT:
                         t.setX(t.getX() + 1);
+                        if(t.getX() > 8) t.setX(8);
                     break;
                     case Input.Keys.DOWN:
                         t.setY(t.getY() - 1);
+                        if(t.getY() < 0) t.setY(0);
                     break;
                     case Input.Keys.SPACE:
                         //t.setY(0);
