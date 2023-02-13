@@ -57,15 +57,12 @@ public class GameScene implements Disposable {
                 switch (keycode) {
                     case Input.Keys.LEFT:
                         t.setX(t.getX() - 1);
-                        if(t.getX() < 0) t.setX(0);
                     break;
                     case Input.Keys.RIGHT:
                         t.setX(t.getX() + 1);
-                        if(t.getX() > 8) t.setX(8);
                     break;
                     case Input.Keys.DOWN:
                         t.setY(t.getY() - 1);
-                        if(t.getY() < 0) t.setY(0);
                     break;
                     case Input.Keys.SPACE:
                         //t.setY(0);
