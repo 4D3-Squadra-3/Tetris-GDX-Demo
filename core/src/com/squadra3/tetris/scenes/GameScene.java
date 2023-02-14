@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.squadra3.tetris.global.Constants;
+import com.squadra3.tetris.global.Variables;
 import com.squadra3.tetris.tetromino.Shape;
 import com.squadra3.tetris.tetromino.Tetromino;
 import com.squadra3.tetris.tetromino.TetrominoBuilder;
@@ -27,7 +28,7 @@ public class GameScene implements Disposable {
         viewport = new FitViewport(Constants.WIN_WIDTH, Constants.WIN_HEIGHT, this.camera);
 
         // TODO Randomizzare la forma
-        t = new TetrominoBuilder().reset().setShape(Shape.IPIECE).setCoords(5, 15).build();
+        t = new TetrominoBuilder().reset().setShape(Shape.ZPIECE).setCoords(5, 15).setID(0).build();
         t.create();
 
         // Input
@@ -35,8 +36,11 @@ public class GameScene implements Disposable {
     }
 
     public void render() {
-        camera.update();
+        camera.update();            // Aggiorna la fotocamera di gioco ogni frame
+        Variables.gameGrid.reset(); // Pulisce lo stato della griglia di gioco ogni frame
 
+        // Pulisce lo schermo con un colore grigio
+        // TODO Creare sfondo
         Gdx.gl.glClearColor(0.05f, 0.05f, 0.05f, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -56,13 +60,16 @@ public class GameScene implements Disposable {
             public boolean keyDown(int keycode) {
                 switch (keycode) {
                     case Input.Keys.LEFT:
-                        t.setX(t.getX() - 1);
+                        if (!t.collidingLeft(Variables.gameGrid))    
+                            t.setX(t.getX() - 1);
                     break;
                     case Input.Keys.RIGHT:
-                        t.setX(t.getX() + 1);
+                        if (!t.collidingRight(Variables.gameGrid))
+                            t.setX(t.getX() + 1);
                     break;
                     case Input.Keys.DOWN:
-                        t.setY(t.getY() - 1);
+                        if (!t.collidingDown(Variables.gameGrid))
+                            t.setY(t.getY() - 1);
                     break;
                     case Input.Keys.SPACE:
                         //t.setY(0);
