@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.utils.Disposable;
+import com.squadra3.tetris.field.Grid;
 import com.squadra3.tetris.tetromino.block.Block;
 import com.squadra3.tetris.tetromino.block.BlockBuilder;
 import com.squadra3.tetris.tetromino.block.BlockCollision;
@@ -61,6 +62,7 @@ public class Tetromino implements Disposable {
     }
 
     public void render(Camera camera) {
+
         body.get(0).render(x, y);   // Primo blocco centrale
         
         // A seconda della forma, cambia come vengono disegnati i tetromini
@@ -134,31 +136,31 @@ public class Tetromino implements Disposable {
         return y;
     }
 
-    public boolean collidingRight() {
+    public boolean collidingRight(Grid g) {
         boolean ret = false;
 
         for (int i = 0; i < body.size(); i++) {
-            ret = BlockCollision.checkCollision(body.get(i))[0];
+            ret = BlockCollision.checkCollision(body.get(i), g)[0];
             if (ret == true) break;
         }
 
         return ret;
     }
-    public boolean collidingLeft() {
+    public boolean collidingLeft(Grid g) {
         boolean ret = false;
 
         for (int i = 0; i < body.size(); i++) {
-            ret = BlockCollision.checkCollision(body.get(i))[1];
+            ret = BlockCollision.checkCollision(body.get(i), g)[1];
             if (ret == true) break;
         }
 
         return ret;
     }
-    public boolean collidingDown() {
+    public boolean collidingDown(Grid g) {
         boolean ret = false;
 
         for (int i = 0; i < body.size(); i++) {
-            ret = BlockCollision.checkCollision(body.get(i))[2];
+            ret = BlockCollision.checkCollision(body.get(i), g)[2];
             if (ret == true) break;
         }
 

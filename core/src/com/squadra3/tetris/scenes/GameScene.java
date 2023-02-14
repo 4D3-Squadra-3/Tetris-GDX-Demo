@@ -9,7 +9,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.squadra3.tetris.field.Grid;
 import com.squadra3.tetris.global.Constants;
+import com.squadra3.tetris.global.Variables;
 import com.squadra3.tetris.tetromino.Shape;
 import com.squadra3.tetris.tetromino.Tetromino;
 import com.squadra3.tetris.tetromino.TetrominoBuilder;
@@ -28,7 +30,7 @@ public class GameScene implements Disposable {
         viewport = new FitViewport(Constants.WIN_WIDTH, Constants.WIN_HEIGHT, this.camera);
 
         // TODO Randomizzare la forma
-        t = new TetrominoBuilder().reset().setShape(Shape.ZPIECE).setCoords(5, 15).build();
+        t = new TetrominoBuilder().reset().setShape(Shape.ZPIECE).setCoords(5, 15).setID(0).build();
         t.create();
 
         // Input
@@ -57,15 +59,15 @@ public class GameScene implements Disposable {
             public boolean keyDown(int keycode) {
                 switch (keycode) {
                     case Input.Keys.LEFT:
-                        if (!t.collidingLeft())    
+                        if (!t.collidingLeft(Variables.gameGrid))    
                             t.setX(t.getX() - 1);
                     break;
                     case Input.Keys.RIGHT:
-                        if (!t.collidingRight())
+                        if (!t.collidingRight(Variables.gameGrid))
                             t.setX(t.getX() + 1);
                     break;
                     case Input.Keys.DOWN:
-                        if (!t.collidingDown())
+                        if (!t.collidingDown(Variables.gameGrid))
                             t.setY(t.getY() - 1);
                     break;
                     case Input.Keys.SPACE:
