@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.squadra3.tetris.global.Constants;
+import com.squadra3.tetris.tetromino.Randomizer;
 import com.squadra3.tetris.tetromino.Shape;
 import com.squadra3.tetris.tetromino.Tetromino;
 import com.squadra3.tetris.tetromino.TetrominoBuilder;
@@ -19,6 +20,8 @@ public class GameScene implements Disposable {
     Camera camera;
     Viewport viewport;
 
+    Randomizer randomizer = new Randomizer();
+
     // TODO Creare pool di tetromini
     Tetromino t;
 
@@ -27,7 +30,7 @@ public class GameScene implements Disposable {
         viewport = new FitViewport(Constants.WIN_WIDTH, Constants.WIN_HEIGHT, this.camera);
 
         // TODO Randomizzare la forma
-        t = new TetrominoBuilder().reset().setShape(Shape.ZPIECE).setCoords(5, 15).build();
+        t = new TetrominoBuilder().reset().setShape(randomizer.getRandomShape()).setCoords(5, 15).build();
         t.create();
 
         // Input
