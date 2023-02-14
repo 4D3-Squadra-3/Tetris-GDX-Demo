@@ -22,6 +22,12 @@ public class Tetromino implements Disposable {
     protected int id;
 
     public void create() {
+        states.add(RotationStates.HORIZONTAL_1);
+        states.add(RotationStates.VERTICAL_1);
+        states.add(RotationStates.HORIZONTAL_2);
+        states.add(RotationStates.VERTICAL_2);
+        
+
         body = new ArrayList<Block>();
 
         Color drawColor;
@@ -69,45 +75,199 @@ public class Tetromino implements Disposable {
         switch (shape) {
             case IPIECE:
                 // I
-                body.get(1).render(x-1, y);
-                body.get(2).render(x+1, y);
-                body.get(3).render(x+2, y);
+                switch (states.get(rotationIndex)) {
+                    case HORIZONTAL_1:
+                        body.get(1).render(x-1, y);
+                        body.get(2).render(x+1, y);
+                        body.get(3).render(x+2, y);
+                    break;
+
+                    case VERTICAL_1:
+                        body.get(1).render(x, y-1);
+                        body.get(2).render(x, y+1);
+                        body.get(3).render(x, y+2);
+                    break;
+
+                    case HORIZONTAL_2:
+                        body.get(1).render(x-1, y);
+                        body.get(2).render(x+1, y);
+                        body.get(3).render(x+2, y);
+                    break;
+
+                    case VERTICAL_2:
+                        body.get(1).render(x, y-1);
+                        body.get(2).render(x, y+1);
+                        body.get(3).render(x, y+2);
+                    break;
+                }
                 break;
             case JPIECE:
                 // J
-                body.get(1).render(x-1, y);
-                body.get(2).render(x+1, y);
-                body.get(3).render(x-1, y+1);                
+                switch (states.get(rotationIndex)) {
+                    case HORIZONTAL_1:
+                        body.get(1).render(x-1, y);
+                        body.get(2).render(x+1, y);
+                        body.get(3).render(x-1, y+1); 
+                    break;
+
+                    case VERTICAL_1:
+                        body.get(1).render(x, y+1);
+                        body.get(2).render(x, y-1);
+                        body.get(3).render(x+1, y+1);
+                    break;
+
+                    case HORIZONTAL_2:
+                        body.get(1).render(x-1, y);
+                        body.get(2).render(x+1, y);
+                        body.get(3).render(x+1, y-1); 
+                    break;
+
+                    case VERTICAL_2:
+                        body.get(1).render(x, y+1);
+                        body.get(2).render(x, y-1);
+                        body.get(3).render(x-1, y-1);
+                    break;
+                }             
                 break;
             case LPIECE:
                 // L
-                body.get(1).render(x-1, y);
-                body.get(2).render(x+1, y);
-                body.get(3).render(x+1, y+1);
+                switch (states.get(rotationIndex)) {
+                    case HORIZONTAL_1:
+                        body.get(1).render(x-1, y);
+                        body.get(2).render(x+1, y);
+                        body.get(3).render(x+1, y+1);
+                    break;
+
+                    case VERTICAL_1:
+                        body.get(1).render(x, y+1);
+                        body.get(2).render(x, y-1);
+                        body.get(3).render(x+1, y-1);
+                    break;
+
+                    case HORIZONTAL_2:
+                        body.get(1).render(x+1, y);
+                        body.get(2).render(x-1, y);
+                        body.get(3).render(x-1, y-1);
+                    break;
+
+                    case VERTICAL_2:
+                        body.get(1).render(x, y+1);
+                        body.get(2).render(x, y-1);
+                        body.get(3).render(x-1, y+1);
+                    break;
+                } 
                 break;
             case OPIECE:
                 // O
-                body.get(1).render(x+1, y+1);
-                body.get(2).render(x, y+1);
-                body.get(3).render(x+1, y);
+                switch (states.get(rotationIndex)) {
+                    case HORIZONTAL_1:
+                        body.get(1).render(x+1, y+1);
+                        body.get(2).render(x, y+1);
+                        body.get(3).render(x+1, y);
+                    break;
+
+                    case VERTICAL_1:
+                        body.get(1).render(x+1, y+1);
+                        body.get(2).render(x, y+1);
+                        body.get(3).render(x+1, y);
+                    break;
+
+                    case HORIZONTAL_2:
+                        body.get(1).render(x+1, y+1);
+                        body.get(2).render(x, y+1);
+                        body.get(3).render(x+1, y);
+                    break;
+
+                    case VERTICAL_2:
+                        body.get(1).render(x+1, y+1);
+                        body.get(2).render(x, y+1);
+                        body.get(3).render(x+1, y);
+                    break;
+                }
                 break;
             case ZPIECE:
                 // Z
-                body.get(1).render(x+1, y);
-                body.get(2).render(x, y+1);
-                body.get(3).render(x-1, y+1);
+                switch (states.get(rotationIndex)) {
+                    case HORIZONTAL_1:
+                        body.get(1).render(x+1, y);
+                        body.get(2).render(x, y+1);
+                        body.get(3).render(x-1, y+1);
+                    break;
+
+                    case VERTICAL_1:
+                        body.get(1).render(x+1, y);
+                        body.get(2).render(x+1, y+1);
+                        body.get(3).render(x, y-1);
+                    break;
+
+                    case HORIZONTAL_2:
+                        body.get(1).render(x+1, y);
+                        body.get(2).render(x, y+1);
+                        body.get(3).render(x-1, y+1);
+                    break;
+
+                    case VERTICAL_2:
+                        body.get(1).render(x+1, y);
+                        body.get(2).render(x+1, y+1);
+                        body.get(3).render(x, y-1);
+                    break;
+                } 
                 break;
             case SPIECE:
                 // S
-                body.get(1).render(x-1, y);
-                body.get(2).render(x, y+1);
-                body.get(3).render(x+1, y+1);       
+                switch (states.get(rotationIndex)) {
+                    case HORIZONTAL_1:
+                        body.get(1).render(x-1, y);
+                        body.get(2).render(x, y+1);
+                        body.get(3).render(x+1, y+1);
+                    break;
+
+                    case VERTICAL_1:
+                        body.get(1).render(x, y+1);
+                        body.get(2).render(x+1, y);
+                        body.get(3).render(x+1, y-1);
+                    break;
+
+                    case HORIZONTAL_2:
+                        body.get(1).render(x-1, y);
+                        body.get(2).render(x, y+1);
+                        body.get(3).render(x+1, y+1);
+                    break;
+
+                    case VERTICAL_2:
+                        body.get(1).render(x, y+1);
+                        body.get(2).render(x+1, y);
+                        body.get(3).render(x+1, y-1);
+                    break;
+                }       
                 break;
             case TPIECE:
                 // T
-                body.get(1).render(x, y+1);
-                body.get(2).render(x+1, y);
-                body.get(3).render(x-1, y);
+                switch (states.get(rotationIndex)) {
+                    case HORIZONTAL_1:
+                        body.get(1).render(x, y+1);
+                        body.get(2).render(x+1, y);
+                        body.get(3).render(x-1, y);
+                    break;
+
+                    case VERTICAL_1:
+                        body.get(1).render(x, y+1);
+                        body.get(2).render(x+1, y);
+                        body.get(3).render(x, y-1);
+                    break;
+
+                    case HORIZONTAL_2:
+                        body.get(1).render(x+1, y);
+                        body.get(2).render(x-1, y);
+                        body.get(3).render(x, y-1);
+                    break;
+
+                    case VERTICAL_2:
+                        body.get(1).render(x-1, y);
+                        body.get(2).render(x, y-1);
+                        body.get(3).render(x, y+1);
+                    break;
+                } 
                 break;
         }
     }
@@ -135,7 +295,8 @@ public class Tetromino implements Disposable {
     public int getY() {
         return y;
     }
-
+    
+    // COLLISIONI
     public boolean collidingRight(Grid g) {
         boolean ret = false;
 
@@ -166,8 +327,22 @@ public class Tetromino implements Disposable {
 
         return ret;
     }
-
+    
+    // ROTAZIONE
+    private List<RotationStates> states = new ArrayList<RotationStates>();
+    private int rotationIndex = 0;
     public void rotate() {
-        // TODO Implementare rotazione
+        rotationIndex++;
+
+        if (rotationIndex > 3) {
+            rotationIndex = 0;
+        }
+    }
+
+    private enum RotationStates {
+        HORIZONTAL_1,
+        VERTICAL_1,
+        HORIZONTAL_2,
+        VERTICAL_2
     }
 }
