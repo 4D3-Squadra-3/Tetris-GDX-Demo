@@ -9,13 +9,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.squadra3.tetris.field.Grid;
 import com.squadra3.tetris.global.Constants;
 import com.squadra3.tetris.global.Variables;
 import com.squadra3.tetris.tetromino.Shape;
 import com.squadra3.tetris.tetromino.Tetromino;
 import com.squadra3.tetris.tetromino.TetrominoBuilder;
-import com.squadra3.tetris.tetromino.block.BlockCollision;
 
 // TODO Griglia di gioco
 public class GameScene implements Disposable {
@@ -38,8 +36,11 @@ public class GameScene implements Disposable {
     }
 
     public void render() {
-        camera.update();
+        camera.update();            // Aggiorna la fotocamera di gioco ogni frame
+        Variables.gameGrid.reset(); // Pulisce lo stato della griglia di gioco ogni frame
 
+        // Pulisce lo schermo con un colore grigio
+        // TODO Creare sfondo
         Gdx.gl.glClearColor(0.05f, 0.05f, 0.05f, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 

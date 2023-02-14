@@ -1,8 +1,8 @@
 package com.squadra3.tetris.field;
 
-public class Cell {
-    private int id;
-    private boolean occupied;
+public class Cell { // Singola cella della griglia di gioco
+    private int id;             // ID del blocco presente
+    private boolean occupied;   // Stato della cella
 
     public void setID(int id) {
         this.id = id;
