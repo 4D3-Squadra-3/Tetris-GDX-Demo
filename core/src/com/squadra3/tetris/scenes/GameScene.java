@@ -6,7 +6,6 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.squadra3.tetris.global.Constants;
@@ -16,7 +15,7 @@ import com.squadra3.tetris.tetromino.Tetromino;
 import com.squadra3.tetris.tetromino.TetrominoBuilder;
 
 // TODO Griglia di gioco
-public class GameScene implements Disposable {
+public class GameScene implements Scene {
     Camera camera;
     Viewport viewport;
 
@@ -24,6 +23,11 @@ public class GameScene implements Disposable {
     Tetromino t;
 
     public GameScene() {
+        this.create();
+    }
+
+    @Override
+    public void create() {
         camera = new OrthographicCamera();
         viewport = new FitViewport(Constants.WIN_WIDTH, Constants.WIN_HEIGHT, this.camera);
 
@@ -35,6 +39,7 @@ public class GameScene implements Disposable {
         initInput();
     }
 
+    @Override
     public void render() {
         camera.update();            // Aggiorna la fotocamera di gioco ogni frame
         Variables.gameGrid.reset(); // Pulisce lo stato della griglia di gioco ogni frame
