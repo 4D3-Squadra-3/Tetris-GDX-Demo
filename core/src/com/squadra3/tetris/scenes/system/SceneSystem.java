@@ -3,8 +3,6 @@ package com.squadra3.tetris.scenes.system;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.squadra3.tetris.scenes.Scene;
-
 public class SceneSystem {
     static int sceneIndex = 0;
     static List<Scene> scenes = new ArrayList<Scene>();

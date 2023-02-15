@@ -1,4 +1,4 @@
-package com.squadra3.tetris.scenes;
+package com.squadra3.tetris.scenes.system;
 
 import com.badlogic.gdx.utils.Disposable;
 
