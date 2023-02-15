@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.squadra3.tetris.global.Constants;
 import com.squadra3.tetris.global.Variables;
+import com.squadra3.tetris.scenes.system.Scene;
 import com.squadra3.tetris.tetromino.Shape;
 import com.squadra3.tetris.tetromino.Tetromino;
 import com.squadra3.tetris.tetromino.TetrominoBuilder;
