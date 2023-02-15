@@ -6,8 +6,10 @@ import java.util.function.Consumer;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.utils.Disposable;
+import com.squadra3.tetris.field.Grid;
 import com.squadra3.tetris.tetromino.block.Block;
 import com.squadra3.tetris.tetromino.block.BlockBuilder;
+import com.squadra3.tetris.tetromino.block.BlockCollision;
 import com.squadra3.tetris.tetromino.block.Color;
 
 // Definizione iniziale di cos'è un Tetromino
@@ -17,6 +19,7 @@ public class Tetromino implements Disposable {
     protected Shape shape;
 
     protected int x, y;
+    protected int id;
 
     public void create() {
         states.add(RotationStates.HORIZONTAL_1);
@@ -59,12 +62,13 @@ public class Tetromino implements Disposable {
         }
 
         for (int i = 0; i < 4; i++) { // Inizializza il corpo del tetromino
-            body.add(new BlockBuilder().reset().setColor(drawColor).build());
+            body.add(new BlockBuilder().reset().setColor(drawColor).setID(id).build());
             //body.get(i).getBatch().setProjectionMatrix(camera.combined);
         }
     }
 
     public void render(Camera camera) {
+
         body.get(0).render(x, y);   // Primo blocco centrale
         
         // A seconda della forma, cambia come vengono disegnati i tetromini
@@ -291,9 +295,40 @@ public class Tetromino implements Disposable {
     public int getY() {
         return y;
     }
+    
+    // COLLISIONI
+    public boolean collidingRight(Grid g) {
+        boolean ret = false;
 
+        for (int i = 0; i < body.size(); i++) {
+            ret = BlockCollision.checkCollision(body.get(i), g)[0];
+            if (ret == true) break;
+        }
 
-    // Rotazione
+        return ret;
+    }
+    public boolean collidingLeft(Grid g) {
+        boolean ret = false;
+
+        for (int i = 0; i < body.size(); i++) {
+            ret = BlockCollision.checkCollision(body.get(i), g)[1];
+            if (ret == true) break;
+        }
+
+        return ret;
+    }
+    public boolean collidingDown(Grid g) {
+        boolean ret = false;
+
+        for (int i = 0; i < body.size(); i++) {
+            ret = BlockCollision.checkCollision(body.get(i), g)[2];
+            if (ret == true) break;
+        }
+
+        return ret;
+    }
+    
+    // ROTAZIONE
     private List<RotationStates> states = new ArrayList<RotationStates>();
     private int rotationIndex = 0;
     public void rotate() {
