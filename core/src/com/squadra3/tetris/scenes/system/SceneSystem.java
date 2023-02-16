@@ -10,7 +10,7 @@ public class SceneSystem {
     public static Scene getCurrentScene() {
         Scene ret = scenes.get(sceneIndex);
         
-        if (ret == null) return null;
+        //if (ret == null) return null;
         
         return ret;
     }
