@@ -5,15 +5,22 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 import com.squadra3.tetris.global.Constants;
+import com.squadra3.tetris.global.Variables;
 
 public class Block implements Disposable {  // Parte di Tetromino
     protected Texture txt;
     protected Color color;
 
+    private int x, y;
+    protected int id;
+
     private SpriteBatch batch = new SpriteBatch();
 
     // Metodo per renderizzare il singolo blocco
     public void render(int x, int y) {
+        this.x = x;
+        this.y = y;
+
         switch (color) {
             case BLUE:
                 txt = new Texture("Blocco blu.png");
@@ -51,10 +58,19 @@ public class Block implements Disposable {  // Parte di Tetromino
         toDraw.draw(batch);
 
         batch.end();
+
+        Variables.gameGrid.occupy(x, y, id);
     }
 
     public SpriteBatch getBatch() {
         return this.batch;
+    }
+
+    public int getX() {
+        return this.x;
+    }
+    public int getY() {
+        return this.y;
     }
 
     @Override
