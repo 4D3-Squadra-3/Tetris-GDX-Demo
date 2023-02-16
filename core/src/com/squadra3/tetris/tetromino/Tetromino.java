@@ -68,41 +68,43 @@ public class Tetromino implements Disposable {
     }
 
     public void render(Camera camera) {
-
-        body.get(0).render(x, y);   // Primo blocco centrale
-        
         // A seconda della forma, cambia come vengono disegnati i tetromini
         switch (shape) {
             case IPIECE:
                 // I
                 switch (states.get(rotationIndex)) {
                     case HORIZONTAL_1:
+                        body.get(0).render(x, y);
                         body.get(1).render(x-1, y);
                         body.get(2).render(x+1, y);
                         body.get(3).render(x+2, y);
                     break;
 
                     case VERTICAL_1:
+                        body.get(0).render(x, y);   
                         body.get(1).render(x, y-1);
                         body.get(2).render(x, y+1);
                         body.get(3).render(x, y+2);
                     break;
 
                     case HORIZONTAL_2:
-                        body.get(1).render(x-1, y);
-                        body.get(2).render(x+1, y);
-                        body.get(3).render(x+2, y);
+                        body.get(0).render(x, y+1);
+                        body.get(1).render(x-1, y+1);
+                        body.get(2).render(x+1, y+1);
+                        body.get(3).render(x+2, y+1);
                     break;
 
                     case VERTICAL_2:
-                        body.get(1).render(x, y-1);
-                        body.get(2).render(x, y+1);
-                        body.get(3).render(x, y+2);
+                        body.get(0).render(x+1, y);
+                        body.get(1).render(x+1, y-1);
+                        body.get(2).render(x+1, y+1);
+                        body.get(3).render(x+1, y+2);
                     break;
                 }
                 break;
             case JPIECE:
                 // J
+                body.get(0).render(x, y);
                 switch (states.get(rotationIndex)) {
                     case HORIZONTAL_1:
                         body.get(1).render(x-1, y);
@@ -131,6 +133,7 @@ public class Tetromino implements Disposable {
                 break;
             case LPIECE:
                 // L
+                body.get(0).render(x, y);
                 switch (states.get(rotationIndex)) {
                     case HORIZONTAL_1:
                         body.get(1).render(x-1, y);
@@ -159,6 +162,14 @@ public class Tetromino implements Disposable {
                 break;
             case OPIECE:
                 // O
+                body.get(0).render(x, y);
+                body.get(1).render(x+1, y+1);
+                body.get(2).render(x, y+1);
+                body.get(3).render(x+1, y);
+                break;
+            case ZPIECE:
+                // Z
+                body.get(0).render(x, y);
                 switch (states.get(rotationIndex)) {
                     case HORIZONTAL_1:
                         body.get(1).render(x+1, y+1);
@@ -185,36 +196,9 @@ public class Tetromino implements Disposable {
                     break;
                 }
                 break;
-            case ZPIECE:
-                // Z
-                switch (states.get(rotationIndex)) {
-                    case HORIZONTAL_1:
-                        body.get(1).render(x+1, y);
-                        body.get(2).render(x, y+1);
-                        body.get(3).render(x-1, y+1);
-                    break;
-
-                    case VERTICAL_1:
-                        body.get(1).render(x+1, y);
-                        body.get(2).render(x+1, y+1);
-                        body.get(3).render(x, y-1);
-                    break;
-
-                    case HORIZONTAL_2:
-                        body.get(1).render(x+1, y);
-                        body.get(2).render(x, y+1);
-                        body.get(3).render(x-1, y+1);
-                    break;
-
-                    case VERTICAL_2:
-                        body.get(1).render(x+1, y);
-                        body.get(2).render(x+1, y+1);
-                        body.get(3).render(x, y-1);
-                    break;
-                } 
-                break;
             case SPIECE:
                 // S
+                body.get(0).render(x, y);
                 switch (states.get(rotationIndex)) {
                     case HORIZONTAL_1:
                         body.get(1).render(x-1, y);
@@ -243,6 +227,7 @@ public class Tetromino implements Disposable {
                 break;
             case TPIECE:
                 // T
+                body.get(0).render(x, y);
                 switch (states.get(rotationIndex)) {
                     case HORIZONTAL_1:
                         body.get(1).render(x, y+1);
