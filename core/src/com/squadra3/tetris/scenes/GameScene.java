@@ -12,7 +12,6 @@ import com.squadra3.tetris.global.Constants;
 import com.squadra3.tetris.tetromino.Randomizer;
 import com.squadra3.tetris.global.Variables;
 import com.squadra3.tetris.scenes.system.Scene;
-import com.squadra3.tetris.tetromino.Shape;
 import com.squadra3.tetris.tetromino.Tetromino;
 import com.squadra3.tetris.tetromino.TetrominoBuilder;
 
@@ -25,6 +24,8 @@ public class GameScene implements Scene {
 
     // TODO Creare pool di tetromini
     Tetromino t;
+
+    int frameCounter = 0;
 
     public GameScene() {
         this.create();
@@ -45,13 +46,19 @@ public class GameScene implements Scene {
 
     @Override
     public void render() {
+        frameCounter++;
+
         camera.update();            // Aggiorna la fotocamera di gioco ogni frame
-        Variables.gameGrid.reset(); // Pulisce lo stato della griglia di gioco ogni frame
+        //Variables.gameGrid.reset(); // Pulisce lo stato della griglia di gioco ogni frame
+
+        if (frameCounter % Constants.FRAMERATE == 0 && !t.collidingDown(Variables.gameGrid)) {
+            t.setY(t.getY() - 1);
+        }
 
         // Pulisce lo schermo con un colore grigio
         // TODO Creare sfondo
         Gdx.gl.glClearColor(0.05f, 0.05f, 0.05f, 0);
-		    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // TODO Creare pool di tetromini
         t.render(camera);
@@ -79,10 +86,6 @@ public class GameScene implements Scene {
                     case Input.Keys.DOWN:
                         if (!t.collidingDown(Variables.gameGrid))
                             t.setY(t.getY() - 1);
-                    break;
-                    case Input.Keys.SPACE:
-                        //t.setY(0);
-                        // TODO Bounds
                     break;
                     case Input.Keys.UP:
                         t.rotate();
