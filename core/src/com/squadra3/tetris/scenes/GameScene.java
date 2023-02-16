@@ -49,7 +49,7 @@ public class GameScene implements Scene {
         frameCounter++;
 
         camera.update();            // Aggiorna la fotocamera di gioco ogni frame
-        //Variables.gameGrid.reset(); // Pulisce lo stato della griglia di gioco ogni frame
+        Variables.gameGrid.reset(); // Pulisce lo stato della griglia di gioco ogni frame
 
         if (frameCounter % Constants.FRAMERATE == 0 && !t.collidingDown(Variables.gameGrid)) {
             t.setY(t.getY() - 1);
