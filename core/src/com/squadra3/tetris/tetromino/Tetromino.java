@@ -196,34 +196,6 @@ public class Tetromino implements Disposable {
                     break;
                 }
                 break;
-            case ZPIECE:
-                // Z
-                switch (states.get(rotationIndex)) {
-                    case HORIZONTAL_1:
-                        body.get(1).render(x+1, y);
-                        body.get(2).render(x, y+1);
-                        body.get(3).render(x-1, y+1);
-                    break;
-
-                    case VERTICAL_1:
-                        body.get(1).render(x+1, y);
-                        body.get(2).render(x+1, y+1);
-                        body.get(3).render(x, y-1);
-                    break;
-
-                    case HORIZONTAL_2:
-                        body.get(1).render(x+1, y);
-                        body.get(2).render(x, y+1);
-                        body.get(3).render(x-1, y+1);
-                    break;
-
-                    case VERTICAL_2:
-                        body.get(1).render(x+1, y);
-                        body.get(2).render(x+1, y+1);
-                        body.get(3).render(x, y-1);
-                    break;
-                } 
-                break;
             case SPIECE:
                 // S
                 body.get(0).render(x, y);
