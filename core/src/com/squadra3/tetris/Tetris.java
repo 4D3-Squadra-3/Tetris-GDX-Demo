@@ -15,6 +15,5 @@ public class Tetris extends ApplicationAdapter {
 	@Override
 	public void render () {
 		SceneSystem.getCurrentScene().render();
-		System.out.println(SceneSystem.getCurrentScene());
 	}
 }
