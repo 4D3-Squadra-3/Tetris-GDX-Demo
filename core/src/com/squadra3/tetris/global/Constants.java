@@ -9,4 +9,7 @@ public class Constants {
     // Grandezza griglia di gioco
     public static final int GRID_WIDTH = 10;
     public static final int GRID_HEIGHT = 20;
+
+    // Framerate
+    public static final int FRAMERATE = 60;
 }

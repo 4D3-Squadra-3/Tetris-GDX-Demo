@@ -22,5 +22,10 @@ public class BlockBuilder implements Builder<Block> {
         toBuild.color = color;
         return this;
     }
+
+    public BlockBuilder setID(int id) {
+        toBuild.id = id;
+        return this;
+    }
     
 }
