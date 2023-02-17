@@ -21,6 +21,8 @@ public class Tetromino implements Disposable {
     protected int x, y;
     protected int id;
 
+    private boolean frozen = false;
+
     public void create() {
         states.add(RotationStates.HORIZONTAL_1);
         states.add(RotationStates.VERTICAL_1);
@@ -257,6 +259,10 @@ public class Tetromino implements Disposable {
         }
     }
 
+    public int getID() {
+        return id;
+    }
+
     @Override
     public void dispose() { // Elimina il Tetromino
         body.forEach(new Consumer<Block>() {
@@ -307,6 +313,7 @@ public class Tetromino implements Disposable {
 
         for (int i = 0; i < body.size(); i++) {
             ret = BlockCollision.checkCollision(body.get(i), g)[2];
+            //System.out.println(ret);
             if (ret == true) break;
         }
 
@@ -329,5 +336,16 @@ public class Tetromino implements Disposable {
         VERTICAL_1,
         HORIZONTAL_2,
         VERTICAL_2
+    }
+
+    // FREEZE
+    public void freeze() {
+        frozen = true;
+    }
+    public void unfreeze() {
+        frozen = false;
+    }
+    public boolean isFrozen() {
+        return frozen;
     }
 }

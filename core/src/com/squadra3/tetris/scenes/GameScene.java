@@ -1,5 +1,9 @@
 package com.squadra3.tetris.scenes;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
@@ -8,6 +12,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.squadra3.tetris.game.TetrominoStack;
 import com.squadra3.tetris.global.Constants;
 import com.squadra3.tetris.tetromino.Randomizer;
 import com.squadra3.tetris.global.Variables;
@@ -23,9 +28,11 @@ public class GameScene implements Scene {
     Randomizer randomizer = new Randomizer();
 
     // TODO Creare pool di tetromini
-    Tetromino t;
+    Tetromino t;                                            // Tetromino corrente
+    TetrominoStack stack;                                   // Stack di tetromini
 
     int frameCounter = 0;
+    int pieceCounter = 0;
 
     public GameScene() {
         this.create();
@@ -36,8 +43,10 @@ public class GameScene implements Scene {
         camera = new OrthographicCamera();
         viewport = new FitViewport(Constants.WIN_WIDTH, Constants.WIN_HEIGHT, this.camera);
 
+        stack = new TetrominoStack();
+
         // TODO Randomizzare la forma
-        t = new TetrominoBuilder().reset().setShape(randomizer.getRandomShape()).setCoords(5, 15).setID(0).build();
+        t = new TetrominoBuilder().reset().setShape(randomizer.getRandomShape()).setCoords(5, 15).setID(pieceCounter).build();
         t.create();
 
         // Input
@@ -49,10 +58,20 @@ public class GameScene implements Scene {
         frameCounter++;
 
         camera.update();            // Aggiorna la fotocamera di gioco ogni frame
-        Variables.gameGrid.reset(); // Pulisce lo stato della griglia di gioco ogni frame
 
-        if (frameCounter % Constants.FRAMERATE == 0 && !t.collidingDown(Variables.gameGrid)) {
-            t.setY(t.getY() - 1);
+        if (frameCounter % Constants.FRAMERATE == 0) {
+            if (!t.collidingDown(Variables.gameGrid) && !t.isFrozen()) {
+                t.setY(t.getY() - 1);
+            }
+
+            if (t.collidingDown(Variables.gameGrid)) {
+                Variables.gameGrid.reset(); // Pulisce lo stato della griglia di gioco ogni frame
+                pieceCounter++;
+                t.freeze();
+                stack.add(t);
+                t = new TetrominoBuilder().reset().setShape(randomizer.getRandomShape()).setCoords(5, 15).setID(pieceCounter).build();
+                t.create();
+            }
         }
 
         // Pulisce lo schermo con un colore grigio
@@ -62,6 +81,9 @@ public class GameScene implements Scene {
 
         // TODO Creare pool di tetromini
         t.render(camera);
+
+        stack.renderAll(camera);
+
     }
 
     @Override
