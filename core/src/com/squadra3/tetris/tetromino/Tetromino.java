@@ -332,6 +332,15 @@ public class Tetromino implements Disposable {
         if (rotationIndex > 3) {
             rotationIndex = 0;
         }
+
+        // Kickoff muri
+        if (x + 1 > 9) x--;
+        if (x - 1 < 0) x++;
+
+        if (shape == Shape.IPIECE) {
+            if (x - 2 < 0) x += 2;
+            if (x + 2 > 9) x -= 2;
+        }
     }
 
     private enum RotationStates {
