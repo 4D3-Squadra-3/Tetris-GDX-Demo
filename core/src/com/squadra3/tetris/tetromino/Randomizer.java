@@ -14,7 +14,7 @@ public class Randomizer {
     };
 
     public Shape getRandomShape() {
-        int value = new Random().nextInt(6);
+        int value = new Random().nextInt(7);
 
         return shapes[value];
     }

@@ -30,9 +30,9 @@ public class BlockCollision {
             g.getCell(b.getX() - 1, b.getY()),  // LEFT
             g.getCell(b.getX(), b.getY() - 1)   // DOWN
         };
-        for (Cell c : surrounding) if (c == null) return collision; // Se getCell() ritorna null esci dalla funzione, questo per evitare di andare fuori dai bounds della griglia
+        //for (Cell c : surrounding) if (c == null) return collision; // Se getCell() ritorna null esci dalla funzione, questo per evitare di andare fuori dai bounds della griglia
         for (int i = 0; i < surrounding.length; i++) {
-            if (surrounding[i].isOccupied() && surrounding[i].getID() != b.id) collision[i] = true; // Se la cella circostante è occupata e ha ID diverso da quelo del blocco controllato, conferma la collisione su un lato
+            if (surrounding[i] != null && surrounding[i].isOccupied() && surrounding[i].getID() != b.id) collision[i] = true; // Se la cella circostante è occupata e ha ID diverso da quelo del blocco controllato, conferma la collisione su un lato
             //System.out.println(surrounding[2].isOccupied());
         }
         return collision;
