@@ -177,27 +177,27 @@ public class Tetromino implements Disposable {
                 body.get(0).render(x, y);
                 switch (states.get(rotationIndex)) {
                     case HORIZONTAL_1:
-                        body.get(1).render(x+1, y+1);
-                        body.get(2).render(x, y+1);
-                        body.get(3).render(x+1, y);
+                        body.get(1).render(x, y+1);
+                        body.get(2).render(x+1, y);
+                        body.get(3).render(x-1, y+1);
                     break;
 
                     case VERTICAL_1:
                         body.get(1).render(x+1, y+1);
-                        body.get(2).render(x, y+1);
-                        body.get(3).render(x+1, y);
+                        body.get(2).render(x+1, y);
+                        body.get(3).render(x, y-1);
                     break;
 
                     case HORIZONTAL_2:
-                        body.get(1).render(x+1, y+1);
-                        body.get(2).render(x, y+1);
-                        body.get(3).render(x+1, y);
+                        body.get(1).render(x-1, y);
+                        body.get(2).render(x, y-1);
+                        body.get(3).render(x+1, y-1);
                     break;
 
                     case VERTICAL_2:
-                        body.get(1).render(x+1, y+1);
-                        body.get(2).render(x, y+1);
-                        body.get(3).render(x+1, y);
+                        body.get(1).render(x, y+1);
+                        body.get(2).render(x-1, y);
+                        body.get(3).render(x-1, y-1 );
                     break;
                 }
                 break;
@@ -218,15 +218,15 @@ public class Tetromino implements Disposable {
                     break;
 
                     case HORIZONTAL_2:
-                        body.get(1).render(x-1, y);
-                        body.get(2).render(x, y+1);
-                        body.get(3).render(x+1, y+1);
+                        body.get(1).render(x, y-1);
+                        body.get(2).render(x-1, y-1);
+                        body.get(3).render(x+1, y);
                     break;
 
                     case VERTICAL_2:
-                        body.get(1).render(x, y+1);
-                        body.get(2).render(x+1, y);
-                        body.get(3).render(x+1, y-1);
+                        body.get(1).render(x-1, y);
+                        body.get(2).render(x-1, y+1);
+                        body.get(3).render(x, y-1);
                     break;
                 }       
                 break;

@@ -68,7 +68,7 @@ public class GameScene implements Scene {
         // Pulisce lo schermo con un colore grigio
         // TODO Creare sfondo
         Gdx.gl.glClearColor(0.05f, 0.05f, 0.05f, 0);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // TODO Creare pool di tetromini
         t.render(camera);
