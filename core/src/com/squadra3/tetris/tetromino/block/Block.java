@@ -9,6 +9,8 @@ import com.squadra3.tetris.global.Variables;
 
 public class Block implements Disposable {  // Parte di Tetromino
     protected Texture txt;
+    private Sprite drawable;
+
     protected Color color;
 
     private int x, y;
@@ -16,11 +18,7 @@ public class Block implements Disposable {  // Parte di Tetromino
 
     private SpriteBatch batch = new SpriteBatch();
 
-    // Metodo per renderizzare il singolo blocco
-    public void render(int x, int y) {
-        this.x = x;
-        this.y = y;
-
+    public void create() {
         switch (color) {
             case BLUE:
                 txt = new Texture("Blocco blu.png");
@@ -48,14 +46,20 @@ public class Block implements Disposable {  // Parte di Tetromino
 
         }
 
-        Sprite toDraw = new Sprite(txt);
-        toDraw.setSize(Constants.WIN_WIDTH / Constants.GRID_WIDTH, Constants.WIN_HEIGHT / Constants.GRID_HEIGHT);
-        toDraw.setPosition(x * (Constants.WIN_WIDTH / Constants.GRID_WIDTH), y * (Constants.WIN_HEIGHT / Constants.GRID_HEIGHT));
+        drawable = new Sprite(txt);
+        drawable.setSize(Constants.WIN_WIDTH / Constants.GRID_WIDTH, Constants.WIN_HEIGHT / Constants.GRID_HEIGHT);
+    }
+
+    // Metodo per renderizzare il singolo blocco
+    public void render(int x, int y) {
+        this.x = x;
+        this.y = y;
+
+        drawable.setPosition(x * (Constants.WIN_WIDTH / Constants.GRID_WIDTH), y * (Constants.WIN_HEIGHT / Constants.GRID_HEIGHT));
 
         batch.begin();
 
-        //batch.draw(txt, x * 256, y * 256);
-        toDraw.draw(batch);
+        drawable.draw(batch);
 
         batch.end();
 
@@ -76,5 +80,6 @@ public class Block implements Disposable {  // Parte di Tetromino
     @Override
     public void dispose() {
         txt.dispose();
+        batch.dispose();
     }
 }

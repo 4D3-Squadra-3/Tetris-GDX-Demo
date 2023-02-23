@@ -15,6 +15,8 @@ import com.squadra3.tetris.tetromino.block.Color;
 // Definizione iniziale di cos'è un Tetromino
 // TODO Implementare Super Rotation System
 public class Tetromino implements Disposable {
+    private BlockCollision cSystem = new BlockCollision();
+
     protected List<Block> body; // Lista di blocchi utilizzata come corpo del Tetromino
     protected Shape shape;
 
@@ -62,7 +64,10 @@ public class Tetromino implements Disposable {
         }
 
         for (int i = 0; i < 4; i++) { // Inizializza il corpo del tetromino
-            body.add(new BlockBuilder().reset().setColor(drawColor).setID(id).build());
+            Block toAdd = new BlockBuilder().reset().setColor(drawColor).setID(id).build();
+            toAdd.create();
+            
+            body.add(toAdd);
             //body.get(i).getBatch().setProjectionMatrix(camera.combined);
         }
     }
@@ -257,6 +262,10 @@ public class Tetromino implements Disposable {
         }
     }
 
+    public int getID() {
+        return id;
+    }
+
     @Override
     public void dispose() { // Elimina il Tetromino
         body.forEach(new Consumer<Block>() {
@@ -286,7 +295,7 @@ public class Tetromino implements Disposable {
         boolean ret = false;
 
         for (int i = 0; i < body.size(); i++) {
-            ret = BlockCollision.checkCollision(body.get(i), g)[0];
+            ret = cSystem.checkCollision(body.get(i), g)[0];
             if (ret == true) break;
         }
 
@@ -296,7 +305,7 @@ public class Tetromino implements Disposable {
         boolean ret = false;
 
         for (int i = 0; i < body.size(); i++) {
-            ret = BlockCollision.checkCollision(body.get(i), g)[1];
+            ret = cSystem.checkCollision(body.get(i), g)[1];
             if (ret == true) break;
         }
 
@@ -306,7 +315,8 @@ public class Tetromino implements Disposable {
         boolean ret = false;
 
         for (int i = 0; i < body.size(); i++) {
-            ret = BlockCollision.checkCollision(body.get(i), g)[2];
+            ret = cSystem.checkCollision(body.get(i), g)[2];
+            //System.out.println(ret);
             if (ret == true) break;
         }
 
