@@ -31,10 +31,6 @@ public class MainMenu implements Scene {
 
     SpriteBatch batch = new SpriteBatch();
 
-    public MainMenu() {
-        this.create();
-    }
-
     @Override
     public void create() {
         camera = new OrthographicCamera();
@@ -76,5 +72,6 @@ public class MainMenu implements Scene {
     public void dispose() {
         titleFont.dispose();
         fgen.dispose();
+        batch.dispose();
     }
 }

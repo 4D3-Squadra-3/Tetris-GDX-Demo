@@ -10,6 +10,8 @@ public class Tetris extends ApplicationAdapter {
 	public void create () {		// Carico le scene di gioco
 		SceneSystem.addScene(new MainMenu());
 		SceneSystem.addScene(new GameScene());
+
+		SceneSystem.setActive(0);
 	}
 
 	@Override

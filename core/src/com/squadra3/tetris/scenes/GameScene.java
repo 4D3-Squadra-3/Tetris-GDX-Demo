@@ -1,9 +1,5 @@
 package com.squadra3.tetris.scenes;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
@@ -34,10 +30,6 @@ public class GameScene implements Scene {
     int frameCounter = 0;
     int pieceCounter = 0;
 
-    public GameScene() {
-        this.create();
-    }
-
     @Override
     public void create() {
         camera = new OrthographicCamera();
@@ -60,14 +52,13 @@ public class GameScene implements Scene {
         camera.update();            // Aggiorna la fotocamera di gioco ogni frame
 
         if (frameCounter % Constants.FRAMERATE == 0) {
-            if (!t.collidingDown(Variables.gameGrid) && !t.isFrozen()) {
+            if (!t.collidingDown(Variables.gameGrid)) {
                 t.setY(t.getY() - 1);
             }
 
             if (t.collidingDown(Variables.gameGrid)) {
                 Variables.gameGrid.reset(); // Pulisce lo stato della griglia di gioco ogni frame
                 pieceCounter++;
-                t.freeze();
                 stack.add(t);
                 t = new TetrominoBuilder().reset().setShape(randomizer.getRandomShape()).setCoords(5, 15).setID(pieceCounter).build();
                 t.create();
@@ -88,7 +79,8 @@ public class GameScene implements Scene {
 
     @Override
     public void dispose() {
-        
+        t.dispose();
+        stack.dispose();
     }
 
     // Inizializzazione input
