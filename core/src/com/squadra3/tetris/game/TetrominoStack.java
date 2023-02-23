@@ -2,10 +2,13 @@ package com.squadra3.tetris.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
+
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.utils.Disposable;
 import com.squadra3.tetris.tetromino.Tetromino;
 
-public class TetrominoStack {
+public class TetrominoStack implements Disposable {
     List<Tetromino> stack = new ArrayList<Tetromino>();
     boolean empty = true;
     
@@ -32,5 +35,15 @@ public class TetrominoStack {
     public void add(Tetromino toAdd) {
         empty = false;
         stack.add(toAdd);
+    }
+
+    @Override
+    public void dispose() {
+        stack.forEach(new Consumer<Tetromino>() {
+            @Override
+            public void accept(Tetromino t) {
+                t.dispose();
+            }
+        });
     }
 }

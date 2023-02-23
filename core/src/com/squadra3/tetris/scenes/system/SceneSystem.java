@@ -10,8 +10,6 @@ public class SceneSystem {
     public static Scene getCurrentScene() {
         Scene ret = scenes.get(sceneIndex);
         
-        //if (ret == null) return null;
-        
         return ret;
     }
 
@@ -23,5 +21,9 @@ public class SceneSystem {
         if (scenes.get(index) == null) return;
         
         sceneIndex = index;
+        scenes.get(index).create();
+
+        if (sceneIndex - 1 > 0)
+            scenes.get(sceneIndex - 1).dispose();
     }
 }

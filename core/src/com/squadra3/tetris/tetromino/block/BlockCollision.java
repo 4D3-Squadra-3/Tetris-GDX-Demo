@@ -5,19 +5,19 @@ import com.squadra3.tetris.field.Grid;
 
 // Gestore collisioni di un singolo blocco, si interfaccia con la griglia di gioco per dedurre le collisioni con il bordo e con gli altri blocchi
 public class BlockCollision {
-    static boolean[] collision = {  // Collisioni di un blocco
+    boolean[] collision = {  // Collisioni di un blocco
         false,  // RIGHT
         false,  // LEFT
         false   // DOWN
     };  // Non mi serve conoscere le collisioni sopra
 
-    private static void reset() {   // Resetta le collisioni in tutte le direzioni
+    private void reset() {   // Resetta le collisioni in tutte le direzioni
         for (int i = 0; i < collision.length; i++) {
             collision[i] = false;
         }
     }
 
-    public static boolean[] checkCollision(Block b, Grid g) {
+    public boolean[] checkCollision(Block b, Grid g) {
         reset();    // Pulisci la tavola di collisione
 
         // Controllo collisioni bordo
