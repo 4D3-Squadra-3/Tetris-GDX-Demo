@@ -51,20 +51,6 @@ public class GameScene implements Scene {
 
         camera.update();            // Aggiorna la fotocamera di gioco ogni frame
 
-        if (frameCounter % Constants.FRAMERATE == 0) {
-            if (!t.collidingDown(Variables.gameGrid)) {
-                t.setY(t.getY() - 1);
-            }
-
-            if (t.collidingDown(Variables.gameGrid)) {
-                Variables.gameGrid.reset(); // Pulisce lo stato della griglia di gioco ogni frame
-                pieceCounter++;
-                stack.add(t);
-                t = new TetrominoBuilder().reset().setShape(randomizer.getRandomShape()).setCoords(5, 15).setID(pieceCounter).build();
-                t.create();
-            }
-        }
-
         // Pulisce lo schermo con un colore grigio
         // TODO Creare sfondo
         Gdx.gl.glClearColor(0.05f, 0.05f, 0.05f, 0);
@@ -75,6 +61,34 @@ public class GameScene implements Scene {
 
         stack.renderAll(camera);
 
+        if (frameCounter % Constants.FRAMERATE == 0) {
+            if (!t.collidingDown(Variables.gameGrid)) {
+                t.setY(t.getY() - 1);
+            }
+
+            stack.pushDown();
+
+            if (t.collidingDown(Variables.gameGrid)) {
+                pieceCounter++;
+
+                for (int i = 0; i < Constants.GRID_HEIGHT; i++) {
+                    if (Variables.gameGrid.isLineFull(i)) {
+                        System.out.println("full");
+                        for (int j = 0; j < Constants.GRID_WIDTH; j++) {
+                            stack.removeInLine(i);
+                            t.removeBlock(j, i);
+                        }
+                    }
+                }
+                //Variables.gameGrid.reset(); // Pulisce lo stato della griglia di gioco
+
+                stack.add(t);
+                t = new TetrominoBuilder().reset().setShape(randomizer.getRandomShape()).setCoords(5, 15).setID(pieceCounter).build();
+                t.create();
+            }
+
+            Variables.gameGrid.reset(); // Pulisce lo stato della griglia di gioco
+        }
     }
 
     @Override
