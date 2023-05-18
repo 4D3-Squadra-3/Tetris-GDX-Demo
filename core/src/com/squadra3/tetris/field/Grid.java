@@ -5,7 +5,17 @@ import com.squadra3.tetris.global.Constants;
 public class Grid { // Griglia di gioco
     Cell[][] cells = new Cell[Constants.GRID_WIDTH][Constants.GRID_HEIGHT];
 
-    public Grid() {
+    private static Grid instance;
+
+    public static Grid getInstance() {
+        if (instance == null) {
+            instance = new Grid();
+        }
+
+        return instance;
+    }
+
+    private Grid() {
             for (int i = 0; i < Constants.GRID_WIDTH; i++) {
                 for (int j = 0; j < Constants.GRID_HEIGHT; j++) {
                     cells[i][j] = new Cell();
@@ -39,6 +49,8 @@ public class Grid { // Griglia di gioco
     }
 
     public void occupy(int x, int y, int id) {  // Occupa una cella con l'ID di un blocco
+        if (y < 0) y = 0;
+        if (x < 0) x = 0;
         cells[x][y].setID(id);
         cells[x][y].setOccupied(true);
     }

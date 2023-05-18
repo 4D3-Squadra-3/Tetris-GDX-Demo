@@ -17,4 +17,9 @@ public class Cell { // Singola cella della griglia di gioco
     public boolean isOccupied() {
         return this.occupied;
     }
+
+    public void free() {
+        id = 0;
+        occupied = false;
+    }
 }

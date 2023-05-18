@@ -76,7 +76,7 @@ public class Tetromino implements Disposable {
     public void renderBlock(int index, int x, int y) {
         if (body.get(index) != null) body.get(index).render(x, y);
     }
-    public void render(Camera camera) {
+    public void render() {
         // A seconda della forma, cambia come vengono disegnati i tetromini
         switch (shape) {
             case IPIECE:
@@ -295,31 +295,31 @@ public class Tetromino implements Disposable {
     }
     
     // COLLISIONI
-    public boolean collidingRight(Grid g) {
+    public boolean collidingRight() {
         boolean ret = false;
 
         for (int i = 0; i < body.size(); i++) {
-            ret = cSystem.checkCollision(body.get(i), g)[0];
+            ret = cSystem.checkCollision(body.get(i), Grid.getInstance())[0];
             if (ret == true) break;
         }
 
         return ret;
     }
-    public boolean collidingLeft(Grid g) {
+    public boolean collidingLeft() {
         boolean ret = false;
 
         for (int i = 0; i < body.size(); i++) {
-            ret = cSystem.checkCollision(body.get(i), g)[1];
+            ret = cSystem.checkCollision(body.get(i), Grid.getInstance())[1];
             if (ret == true) break;
         }
 
         return ret;
     }
-    public boolean collidingDown(Grid g) {
+    public boolean collidingDown() {
         boolean ret = false;
 
         for (int i = 0; i < body.size(); i++) {
-            ret = cSystem.checkCollision(body.get(i), g)[2];
+            ret = cSystem.checkCollision(body.get(i), Grid.getInstance())[2];
             //System.out.println(ret);
             if (ret == true) break;
         }
@@ -358,10 +358,38 @@ public class Tetromino implements Disposable {
         for (int i = 0; i < body.size(); i++) {
             if (body.get(i) != null) {
                 if (body.get(i).getY() == y && body.get(i).getX() == x) {
+                    Grid.getInstance().getCell(body.get(i).getX(), body.get(i).getY()).free();
                     body.get(i).dispose();
                     body.set(i, null);
                 }
             }
         }
+    }
+
+    public void moveDown() {
+        if (!collidingDown()) {
+            y--;
+            body.forEach(new Consumer<Block>() {
+                @Override
+                public void accept(Block t) {
+                    if (t == null) return;
+                    Grid.getInstance().getCell(t.getX(), t.getY()).free();
+                }
+            });
+        }
+    }
+
+    public void moveX(int val) {
+        if (val > 0 && collidingRight()) return;
+        if (val < 0 && collidingLeft()) return;
+
+        x += val;
+        body.forEach(new Consumer<Block>() {
+            @Override
+            public void accept(Block t) {
+                if (t == null) return;
+                Grid.getInstance().getCell(t.getX(), t.getY()).free();
+            }
+        });
     }
 }

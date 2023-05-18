@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.squadra3.tetris.field.Grid;
 import com.squadra3.tetris.game.TetrominoStack;
 import com.squadra3.tetris.global.Constants;
 import com.squadra3.tetris.tetromino.Randomizer;
@@ -49,45 +50,44 @@ public class GameScene implements Scene {
     public void render() {
         frameCounter++;
 
+        Grid.getInstance().reset();
+
         camera.update();            // Aggiorna la fotocamera di gioco ogni frame
 
         // Pulisce lo schermo con un colore grigio
         // TODO Creare sfondo
         Gdx.gl.glClearColor(0.05f, 0.05f, 0.05f, 0);
-		    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // TODO Creare pool di tetromini
-        t.render(camera);
+        t.render();
 
-        stack.renderAll(camera);
+        stack.renderAll();
 
         if (frameCounter % Constants.FRAMERATE == 0) {
-            if (!t.collidingDown(Variables.gameGrid)) {
-                t.setY(t.getY() - 1);
-            }
+            t.moveDown();
 
             stack.pushDown();
 
-            if (t.collidingDown(Variables.gameGrid)) {
+            if (t.collidingDown()) {
                 pieceCounter++;
 
                 for (int i = 0; i < Constants.GRID_HEIGHT; i++) {
-                    if (Variables.gameGrid.isLineFull(i)) {
-                        System.out.println("full");
+                    if (Grid.getInstance().isLineFull(i)) {
                         for (int j = 0; j < Constants.GRID_WIDTH; j++) {
                             stack.removeInLine(i);
                             t.removeBlock(j, i);
                         }
                     }
                 }
-                //Variables.gameGrid.reset(); // Pulisce lo stato della griglia di gioco
+                //Grid.getInstance().reset(); // Pulisce lo stato della griglia di gioco
 
                 stack.add(t);
                 t = new TetrominoBuilder().reset().setShape(randomizer.getRandomShape()).setCoords(5, 15).setID(pieceCounter).build();
                 t.create();
             }
 
-            Variables.gameGrid.reset(); // Pulisce lo stato della griglia di gioco
+            //Grid.getInstance().reset(); // Pulisce lo stato della griglia di gioco
         }
     }
 
@@ -104,16 +104,16 @@ public class GameScene implements Scene {
             public boolean keyDown(int keycode) {
                 switch (keycode) {
                     case Input.Keys.LEFT:
-                        if (!t.collidingLeft(Variables.gameGrid))    
-                            t.setX(t.getX() - 1);
+                        if (!t.collidingLeft())    
+                            t.moveX(-1);
                     break;
                     case Input.Keys.RIGHT:
-                        if (!t.collidingRight(Variables.gameGrid))
-                            t.setX(t.getX() + 1);
+                        if (!t.collidingRight())
+                            t.moveX(1);
                     break;
                     case Input.Keys.DOWN:
-                        if (!t.collidingDown(Variables.gameGrid))
-                            t.setY(t.getY() - 1);
+                        if (!t.collidingDown())
+                            t.moveDown();
                     break;
                     case Input.Keys.UP:
                         t.rotate();
