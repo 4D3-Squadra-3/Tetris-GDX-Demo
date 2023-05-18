@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.utils.Disposable;
+import com.squadra3.tetris.field.Grid;
 import com.squadra3.tetris.global.Constants;
 import com.squadra3.tetris.global.Variables;
 import com.squadra3.tetris.tetromino.Tetromino;
@@ -14,10 +15,10 @@ public class TetrominoStack implements Disposable {
     List<Tetromino> stack = new ArrayList<Tetromino>();
     boolean empty = true;
     
-    public void renderAll(Camera cam) {
+    public void renderAll() {
         if (!empty) {
             for (int i = 0; i < stack.size(); i++) {
-                if (stack.get(i) != null) stack.get(i).render(cam);
+                if (stack.get(i) != null) stack.get(i).render();
             }
         }
     }
@@ -48,11 +49,12 @@ public class TetrominoStack implements Disposable {
     }
 
     public void pushDown() {
-        for (int i = 0; i < stack.size(); i++) {
-            if (!stack.get(i).collidingDown(Variables.gameGrid)) {
-                stack.get(i).setY(stack.get(i).getY() - 1);
+        stack.forEach(new Consumer<Tetromino>() {
+            @Override
+            public void accept(Tetromino t) {
+                t.moveDown();
             }
-        }
+        });
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
+import com.squadra3.tetris.field.Grid;
 import com.squadra3.tetris.global.Constants;
 import com.squadra3.tetris.global.Variables;
 
@@ -63,7 +64,7 @@ public class Block implements Disposable {  // Parte di Tetromino
 
         batch.end();
 
-        Variables.gameGrid.occupy(x, y, id);
+        Grid.getInstance().occupy(x, y, id);
     }
 
     public SpriteBatch getBatch() {
